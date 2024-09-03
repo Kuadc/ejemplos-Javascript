@@ -11,32 +11,33 @@ const Operaciones = document.getElementById("contenedor")
 
 
 
-function RealizarOperaciones(event)
-{   
+function realizar_operacioens(event)
+{
     errores.innerHTML = ""
     let result = 0
-    if (event.target.id == "multiplicacion")
+    let operaciones = {
+        "multiplicacion" : Number(OperandoUno.value) * Number(OperandoDos.value),
+        "suma" : Number(OperandoUno.value) + Number(OperandoDos.value),
+        "resta" : Number(OperandoUno.value) - Number(OperandoDos.value),
+        "division" : Number(OperandoUno.value) / Number(OperandoDos.value),
+    }
+
+    if(event.target.id !== "" && OperandoUno.value !== "" && OperandoDos.value !== "" )
     {
-        result = Number(OperandoUno.value) * Number(OperandoDos.value)
-        
+        result = operaciones[event.target.id]
+        Resultado.innerHTML = result.toPrecision(4)
     }
-    else if (event.target.id == "resta"){
-        result = Number(OperandoUno.value) - Number(OperandoDos.value)
-    }
-    else if (event.target.id == "suma")
-        {
-        result = Number(OperandoUno.value) + Number(OperandoDos.value)
-        
-    }
-    else{
-        result = Number(OperandoUno.value) / Number(OperandoDos.value)
+    else
+    {
+        errores.innerHTML = "Debe colocar numeros en ambos casilleros"
+        Resultado.innerHTML = "error"
     }
     
-    Resultado.innerHTML = result.toPrecision(5)
-    
+
 }
 
-Operaciones.addEventListener("click", RealizarOperaciones)
+Operaciones.addEventListener("click", realizar_operacioens)
+
 
 
 
